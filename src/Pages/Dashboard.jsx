@@ -11,7 +11,7 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <div className="sidebar">
-        <h2>Sidebar</h2>
+        <h2></h2>
         <ul>
           <li><a href="/dashboard">Home</a></li>
           <li><a href="/dashboard/students">Students</a></li>
@@ -21,7 +21,6 @@ function Dashboard() {
         </ul>
       </div>
       <div className="content">
-        <h1>Dashboard</h1>
         <div className="stats-container">
           <div className="stat-item">
             <h2>Students</h2>
