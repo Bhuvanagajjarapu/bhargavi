@@ -13,6 +13,7 @@ import Logout from './Pages/Logout';
 import StudentRegister from './Pages/StudentRegister';
 import FacultyRegister from './Pages/FacultyRegister';
 import Login from './Pages/Login';
+import BranchSubjects from './Pages/BranchSubjects';
 import './global.css';
 
 const router = createBrowserRouter([
@@ -33,6 +34,8 @@ const router = createBrowserRouter([
       { path: 'grades', element: <Grades /> },
       { path: 'faculty', element: <Faculty /> },
       { path: 'logout', element: <Logout /> },
+      {path:'branch/:branchName' ,element:<BranchSubjects />}
+
     ],
   },
   { path: '/register/student', element: <StudentRegister /> },

@@ -1,16 +1,25 @@
-/* src/pages/faculty.css */
-.faculty-list {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.container {
     padding: 20px;
 }
 
-.faculty-list ul {
-    padding: 0;
+h2 {
+    font-size: 2em;
 }
 
-.faculty-list li {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+button {
+    margin-top: 10px;
 }
