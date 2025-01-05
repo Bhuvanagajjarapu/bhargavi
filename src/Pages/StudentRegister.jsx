@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
-import './Register.css';
-import './Login';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
+import './Register.css'; 
+
 function StudentRegister() {
   const [formData, setFormData] = useState({
     studentId: '',
@@ -10,7 +11,7 @@ function StudentRegister() {
     password: '',
   });
 
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -19,12 +20,17 @@ function StudentRegister() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit form data to server or backend here
-
-    // Redirect to login page after successful registration
-    navigate('/'); // Adjust '/login' to the route for your login page
+    try {
+      const response = await axios.post('http://localhost:5000/register/student', formData);
+      console.log(response.data);
+      if (response.status === 201) {
+        navigate('/');
+      }
+    } catch (error) {
+      alert(error.response.data.error || 'Registration failed');
+    }
   };
 
   return (

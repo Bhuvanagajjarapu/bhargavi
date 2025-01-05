@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
-import './Register.css'; // Import CSS for styling
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
+import './Register.css'; 
 
 function FacultyRegister() {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ function FacultyRegister() {
     department: '',
   });
 
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -20,13 +21,17 @@ function FacultyRegister() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form submission logic (e.g., API call)
-    console.log('Form submitted:', formData);
-
-    // Redirect to Login.jsx after successful registration
-    navigate('/'); // Adjust the route path as per your setup
+    try {
+      const response = await axios.post('http://localhost:5000/register/faculty', formData);
+      console.log(response.data);
+      if (response.status === 201) {
+        navigate('/');
+      }
+    } catch (error) {
+      alert(error.response.data.error || 'Registration failed');
+    }
   };
 
   return (

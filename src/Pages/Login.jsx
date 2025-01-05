@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
 import './Login.css'; 
-import StudentProfile from './StudentProfile';
-import FacultyProfile from './FacultyProfile';
+
 function Login() {
   const [userType, setUserType] = useState('student'); // Default to 'student'
   const [studentID, setStudentID] = useState('');
@@ -11,23 +11,32 @@ function Login() {
   const [facultyPassword, setFacultyPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Add authentication logic here
-    if (userType === 'student') {
-      // Example of checking credentials (replace with real logic)
-      if (studentID && studentPassword) {
-        navigate('/dashboard/profile/student'); // Redirect to student profile after login
-      } else {
-        alert('Please enter valid credentials');
+    try {
+      if (userType === 'student') {
+        const response = await axios.post('http://localhost:5000/login', {
+          userType: 'student',
+          id: studentID,
+          password: studentPassword,
+        });
+        console.log(response.data);
+        if (response.status === 200) {
+          navigate('/dashboard/profile/student'); // Redirect to student profile after login
+        }
+      } else if (userType === 'faculty') {
+        const response = await axios.post('http://localhost:5000/login', {
+          userType: 'faculty',
+          id: facultyID,
+          password: facultyPassword,
+        });
+        console.log(response.data);
+        if (response.status === 200) {
+          navigate('/dashboard/profile/faculty'); // Redirect to faculty profile after login
+        }
       }
-    } else if (userType === 'faculty') {
-      // Example of checking credentials (replace with real logic)
-      if (facultyID && facultyPassword) {
-        navigate('/dashboard/profile/faculty'); // Redirect to faculty profile after login
-      } else {
-        alert('Please enter valid credentials');
-      }
+    } catch (error) {
+      alert(error.response?.data?.error || 'Login failed');
     }
   };
 
